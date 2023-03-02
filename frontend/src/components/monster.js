@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
-const Monster = () => {
+const Monster = (props) => {
 
     const [monster, setMonster] = useState(null)
     const [fetchError, setFetchError] = useState(false)
 
     useEffect(() => {
         // get monster info from api
-        fetch('https://www.dnd5eapi.co/api/monsters/ancient-black-dragon')
+        console.log(props.monsterIndex)
+        fetch(`https://www.dnd5eapi.co/api/monsters/${props.monsterIndex}`)
             .then(res => res.json())
             .then(resData => setMonster(resData))
             .catch(error => setFetchError(e => !e))
-    }, [fetchError])
+    }, [fetchError, props.monsterIndex])
 
     // build armor type string
     const armorTypes = (ac) => {
@@ -64,7 +65,7 @@ const Monster = () => {
     const abilityModifier = (score) => {
         let modifier = Math.floor((score - 10) / 2)
         return (
-            modifier > 0 
+            modifier >= 0 
             ? '+' + modifier
             : modifier
         )
@@ -112,7 +113,7 @@ const Monster = () => {
     }
 
     return (
-        monster === undefined || monster === null ? <h1>ERROR</h1> :
+        monster === undefined || monster === null || monster.error ? <h1>ERROR</h1> :
         (
             <div>
                 <h1>{monster.name}</h1>
@@ -161,6 +162,18 @@ const Monster = () => {
                 }
                 <h2>Actions</h2>
                 <hr />
+                {monster.actions.map(action => <p><b>{action.name}</b> {action.desc}</p>)}
+                {
+                    monster.legendary_actions.length > 0 
+                    ? (
+                        <div>
+                            <h2>Legendary Actions</h2>
+                            <hr />
+                            {monster.legendary_actions.map(action => <p><b>{action.name}</b> {action.desc}</p>)}
+                        </div>
+                    )
+                    : null
+                }
             </div>
         )
     )
