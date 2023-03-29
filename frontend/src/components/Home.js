@@ -8,8 +8,6 @@ const Home = () => {
     const { currentUser } = useContext(CurrentUser)
     const [loginCardOn, setLoginCardOn] = useState(true)
 
-    const toggleLoginCard = (e) => setLoginCardOn(!loginCardOn)
-
     return (
         <div id='home'>
             <div id="info-home">
@@ -35,19 +33,21 @@ const Home = () => {
                             <ButtonGroup>
                                 <ToggleButton
                                     className="mb-2"
-                                    type="checkbox"
-                                    variant="outline-light"
+                                    type="radio"
+                                    variant="outline-dark"
                                     checked={loginCardOn}
-                                    onChange={toggleLoginCard}
+                                    value={true}
+                                    onClick={e => setLoginCardOn(!loginCardOn)}
                                 >
                                     Log In
                                 </ToggleButton>
                                 <ToggleButton
                                     className="mb-2"
-                                    type="checkbox"
-                                    variant="outline-light"
+                                    type="radio"
+                                    variant="outline-dark"
                                     checked={!loginCardOn}
-                                    onChange={toggleLoginCard}
+                                    value={false}
+                                    onClick={e => setLoginCardOn(!loginCardOn)}
                                 >
                                     Sign Up
                                 </ToggleButton>

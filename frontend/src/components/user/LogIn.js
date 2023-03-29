@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
+import { Button, Form } from 'react-bootstrap'
 import { CurrentUser } from '../../context/CurrentUser'
 
 const LogIn = () => {
@@ -13,7 +12,7 @@ const LogIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`${process.env.REACT_APP_BACKENDURL}/authentication/`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/authentication/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

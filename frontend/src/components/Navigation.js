@@ -2,9 +2,7 @@
 import { useContext } from 'react'
 import { CurrentUser } from '../context/CurrentUser'
 // bootstrap components
-import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 
 const Navigation = () => {
     const { currentUser } = useContext(CurrentUser)
