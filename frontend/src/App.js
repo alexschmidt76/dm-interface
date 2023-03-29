@@ -18,12 +18,12 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route exact path='/user/:userId' element={<UserInfo />} />
-          {/* <Route exact path='/user/:userId/campaigns' element={} />
-          <Route exact path='/user/:userId/campaigns/:campaignId' element={} />
-          <Route exact path='/user/:userId/campaigns/:campaignId/:sessionId' element={} />
-          <Route exact path='/user/:userId/monsters' element={} />
-          <Route exact path='/user/:userId/monsters/edit/:monsterId' element={} /> */}
+          <Route exact path='/profile' element={<UserInfo />} />
+          {/* <Route exact path='/campaigns' element={} />
+          <Route exact path='/campaigns/:campaignId' element={} />
+          <Route exact path='/campaigns/:campaignId/:sessionId' element={} />
+          <Route exact path='/monsters' element={} />
+          <Route exact path='/monsters/edit/:monsterId' element={} /> */}
         </Routes>
       </Router>
     </CurrentUserProvider>
