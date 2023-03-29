@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { ButtonGroup, ToggleButton } from 'react-bootstrap'
 import { CurrentUser } from "../context/CurrentUser";
-import LogIn from './LogIn'
-import SignUp from './SignUp'
+import LogIn from './user/LogIn'
+import SignUp from './user/SignUp'
 
 const Home = () => {
     const { currentUser } = useContext(CurrentUser)

@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // context
 import CurrentUserProvider from './context/CurrentUser'
 // components
-import Monster from './components/Monster'
+import Monster from './components/monster/Monster'
 import Navigation from './components/Navigation'
 import Home from './components/Home'
-import UserInfo from './components/UserInfo'
+import UserInfo from './components/user/Profile'
 // npm packages
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 

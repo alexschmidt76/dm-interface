@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
-import { CurrentUser } from '../context/CurrentUser'
+import { CurrentUser } from '../../context/CurrentUser'
 
 const LogIn = () => {
     const { setCurrentUser } = useContext(CurrentUser)
