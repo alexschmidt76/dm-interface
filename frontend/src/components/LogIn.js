@@ -23,6 +23,7 @@ const LogIn = () => {
         const data = await response.json()
 
         if (response.status === 200) {
+            setErrorMessage(null)
             setCurrentUser(data.user)
         } else {
             setErrorMessage(data.message)
@@ -39,6 +40,8 @@ const LogIn = () => {
                         required
                         type='text'
                         placeholder='Enter Email...' 
+                        value={credentials.email}
+                        onChange={e => setCredentials({ ...credentials, email: e.target.value })}
                     />
                 </Form.Group>
                 <Form.Group>
@@ -47,6 +50,8 @@ const LogIn = () => {
                         required
                         type='password'
                         placeholder='Enter Password...'
+                        value={credentials.password}
+                        onChange={e => setCredentials({ ...credentials, password: e.target.value })}
                     />
                 </Form.Group>
                 <Button variant='primary' type='submit'>Log In</Button>
