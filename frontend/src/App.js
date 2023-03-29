@@ -1,5 +1,6 @@
 // styling
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 // context
 import CurrentUserProvider from './context/CurrentUser'
 // components
@@ -18,8 +19,8 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route exact path='/profile' element={<UserInfo />} />
-          {/* <Route exact path='/campaigns' element={} />
+          {/* <Route exact path='/profile' element={<UserInfo />} />
+          <Route exact path='/campaigns' element={} />
           <Route exact path='/campaigns/:campaignId' element={} />
           <Route exact path='/campaigns/:campaignId/:sessionId' element={} />
           <Route exact path='/monsters' element={} />

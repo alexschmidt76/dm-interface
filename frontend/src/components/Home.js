@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
+import { ButtonGroup, ToggleButton } from 'react-bootstrap'
 import { CurrentUser } from "../context/CurrentUser";
 import LogIn from './LogIn'
 import SignUp from './SignUp'
 
 const Home = () => {
     const { currentUser } = useContext(CurrentUser)
-    const [loginFormOn, setLoginFormOn] = useState(true)
+    const [loginCardOn, setLoginCardOn] = useState(true)
+
+    const toggleLoginCard = (e) => setLoginCardOn(!loginCardOn)
 
     return (
         <div id='home'>
@@ -17,8 +20,40 @@ const Home = () => {
             <div id="user-home">
                 {
                     currentUser
-                    ? <div id="user-info-home"></div>
-                    : loginFormOn ? <LogIn /> : <SignUp />
+                    ? (
+                        <div id="user-info-home">
+                            <p><b>Welcome back {currentUser.name}!</b></p>
+                        </div>
+                    )
+                    : (
+                        <div id="login-actions">
+                            {
+                                loginCardOn
+                                ? <LogIn />
+                                : <SignUp />
+                            }
+                            <ButtonGroup>
+                                <ToggleButton
+                                    className="mb-2"
+                                    type="checkbox"
+                                    variant="outline-light"
+                                    checked={loginCardOn}
+                                    onChange={toggleLoginCard}
+                                >
+                                    Log In
+                                </ToggleButton>
+                                <ToggleButton
+                                    className="mb-2"
+                                    type="checkbox"
+                                    variant="outline-light"
+                                    checked={!loginCardOn}
+                                    onChange={toggleLoginCard}
+                                >
+                                    Sign Up
+                                </ToggleButton>
+                            </ButtonGroup>
+                        </div>
+                    )
                 }
             </div>
         </div>

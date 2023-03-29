@@ -6,9 +6,9 @@ function CurrentUserProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
 
     // check if there is a user currently logged in
-    useEffect(() => {
+    /* useEffect(() => {
         fetch()
-    })
+    }) */
 
     return (
         <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>

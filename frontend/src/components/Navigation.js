@@ -11,38 +11,36 @@ const Navigation = () => {
 
     return (
         <nav>
-            <ul style={{ listStyle: 'none' }}>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant='dark' sticky='top'>
-                    <Container>
-                        <Navbar.Brand href='/'><h1>DM Interface</h1></Navbar.Brand>
-                        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-                        <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className='me-auto'>
-                                <Nav.Link href="/">Home</Nav.Link>
-                                {
-                                    currentUser
-                                    ? (
-                                        <>
-                                            <Nav.Link href='/campaigns'>My Campaigns</Nav.Link>
-                                            <Nav.Link href='/monsters'>My Monsters</Nav.Link>
-                                        </>
-                                    ) 
-                                    : null
-                                }
-                            </Nav>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant='dark' sticky='top'>
+                <Container>
+                    <Navbar.Brand href='/'><h1>DM Interface</h1></Navbar.Brand>
+                    <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className='me-auto'>
+                            <Nav.Link href="/">Home</Nav.Link>
                             {
                                 currentUser
                                 ? (
-                                    <Nav>
-                                        <Nav.Link href='/profile'>Logged in as {currentUser.name}</Nav.Link>
-                                    </Nav>
-                                )
+                                    <>
+                                        <Nav.Link href='/campaigns'>My Campaigns</Nav.Link>
+                                        <Nav.Link href='/monsters'>My Monsters</Nav.Link>
+                                    </>
+                                ) 
                                 : null
                             }
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
-            </ul>
+                        </Nav>
+                        {
+                            currentUser
+                            ? (
+                                <Nav>
+                                    <Nav.Link href='/profile'>Logged in as {currentUser.name}</Nav.Link>
+                                </Nav>
+                            )
+                            : null
+                        }
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
         </nav>
     )
 }
