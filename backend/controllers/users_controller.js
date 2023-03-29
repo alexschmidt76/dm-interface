@@ -38,7 +38,7 @@ users.post('/', async (req, res) => {
             email,
             passwordDigest: await bcrypt.hash(password, 10)
         })
-        res.json(newUser)
+        res.json({ user: newUser })
     } else {
         res.status(403).json({
             message: "A user with this email already exists."
