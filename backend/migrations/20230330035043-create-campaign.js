@@ -15,7 +15,7 @@ module.exports = {
       },
       names: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: true
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

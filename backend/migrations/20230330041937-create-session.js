@@ -2,31 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('users', {
-      user_id: {
+    await queryInterface.createTable('sessions', {
+      session_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING,
+      campaign_id: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
-      passwordDigest: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      campaigns: {
+      custom_monsters: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
         allowNull: false
       },
-      monsters: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
+      api_monsters: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: false
+      },
+      notes: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      names: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: false
       },
       createdAt: {
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('sessions');
   }
 };
