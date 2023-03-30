@@ -7,7 +7,9 @@ import CurrentUserProvider from './context/CurrentUser'
 import Monster from './components/monster/Monster'
 import Navigation from './components/Navigation'
 import Home from './components/Home'
-import UserInfo from './components/user/Profile'
+import Profile from './components/user/Profile'
+import Campaigns from './components/campaign/Campaigns'
+import Campaign from './components/campaign/Campaign'
 // npm packages
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -19,10 +21,10 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          {/* <Route exact path='/profile' element={<UserInfo />} />
-          <Route exact path='/campaigns' element={} />
-          <Route exact path='/campaigns/:campaignId' element={} />
-          <Route exact path='/campaigns/:campaignId/:sessionId' element={} />
+          <Route exact path='/campaigns' element={<Campaigns />} />
+          <Route exact path='/campaigns/:campaignId' element={<Campaign />} />
+          <Route exact path='/campaigns/:campaignId/:sessionId' element={<Session />} />
+          {/* <Route exact path='/profile' element={<Profile />} />
           <Route exact path='/monsters' element={} />
           <Route exact path='/monsters/edit/:monsterId' element={} /> */}
         </Routes>

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Alert, Button, Form } from 'react-bootstrap'
 import { CurrentUser } from '../../context/CurrentUser'
 
 const LogIn = () => {
@@ -32,6 +32,11 @@ const LogIn = () => {
     return (
         <div id="login-form">
             <h2>Log In</h2>
+            {
+                errorMessage
+                ? <Alert variant='danger'>{errorMessage}</Alert>
+                : null
+            }
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Email</Form.Label>

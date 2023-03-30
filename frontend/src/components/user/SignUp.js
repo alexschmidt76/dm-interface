@@ -2,7 +2,7 @@
 import { useContext, useState } from "react"
 import { CurrentUser } from "../../context/CurrentUser"
 // components
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 
 const SignUp = () => {
     const { setCurrentUser } = useContext(CurrentUser)
@@ -43,6 +43,12 @@ const SignUp = () => {
 
     return (
         <div id='signup-form'>
+            <h2>Sign Up</h2>
+            {
+                errorMessage
+                ? <Alert variant='danger'>{errorMessage}</Alert>
+                : null
+            }
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label>Username</Form.Label>
@@ -50,7 +56,7 @@ const SignUp = () => {
                         required
                         type='text'
                         placeholder='Create Username...' 
-                        value={credentials.email}
+                        value={credentials.name}
                         onChange={e => setCredentials({ ...credentials, name: e.target.value })}
                     />
                 </Form.Group>
