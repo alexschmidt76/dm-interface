@@ -4,22 +4,7 @@ const users = require('express').Router()
 
 // import db
 const db = require('../models')
-const { User } = db
-
-// get all users
-users.get('/', async (req, res) => {
-    try {
-        // get all users from db
-        const foundUsers = await User.findAll()
-        res.json(foundUsers)
-    } catch {
-        // error message if db error
-        res.status(500).json({
-            message: 'Database Error',
-            console
-        })
-    }
-})
+const { User, Campaign } = db
 
 // create a user
 users.post('/', async (req, res) => {
@@ -28,7 +13,8 @@ users.post('/', async (req, res) => {
 
     // check if email is already associated with a user
     const foundUser = await User.findOne({
-        where: { email: email }
+        where: { email: email },
+        attributes: ['email']
     })
 
     // create user if email is new to db
@@ -44,6 +30,29 @@ users.post('/', async (req, res) => {
             message: "A user with this email already exists."
         })
     }
+})
+
+// get all of a user's camplaigns
+users.get('/:userId/campaigns', async (req, res) => {
+    // check if user exists
+    const foundUser = await User.findOne({
+        where: { user_id: req.params.userId },
+        attributes: ['user_id']
+    })
+    
+    // send campaign list if user exists
+    if (!foundUser) {
+        res.status(404).json({
+            message: 'Error 404 user not found.'
+        })
+    } else {
+        const foundCampaigns = await Campaign.findAll({
+            where: { user_id: req.params.userId },
+            attributes: ['campaign_id', 'createdAt', 'updatedAt', 'name']
+        })
+        res.json({ campigns: foundCampaigns })
+    }
+
 })
 
 module.exports = users

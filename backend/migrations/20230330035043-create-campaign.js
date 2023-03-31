@@ -13,8 +13,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      names: {
+      sessions: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
+        allowNull: false
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      player_names: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.TEXT,
         allowNull: false
       },
       createdAt: {

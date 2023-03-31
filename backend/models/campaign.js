@@ -23,8 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    names: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    player_names: {
       type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {

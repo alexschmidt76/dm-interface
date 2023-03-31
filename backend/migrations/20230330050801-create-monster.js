@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Monsters', {
+    await queryInterface.createTable('monsters', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       armor_class: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       hit_points: {
         type: Sequelize.INTEGER
@@ -34,37 +34,37 @@ module.exports = {
         type: Sequelize.JSON
       },
       strength: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       dexterity: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       constitution: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       wisdom: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       intelligence: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       charisma: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       proficiencies: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       damage_resistances: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       damage_immunities: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       damage_vulnerabilities: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       condition_immunities: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       senses: {
         type: Sequelize.JSON
@@ -79,13 +79,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       special_abilities: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       actions: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       legendary_actions: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       createdAt: {
         allowNull: false,
@@ -98,6 +98,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Monsters');
+    await queryInterface.dropTable('monsters');
   }
 };
