@@ -22,8 +22,8 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/campaigns' element={<Campaigns />} />
-          {/*
           <Route exact path='/campaigns/:campaignId' element={<Campaign />} />
+          {/*
           <Route exact path='/campaigns/:campaignId/:sessionId' element={<Session />} />
           <Route exact path='/profile' element={<Profile />} />
           <Route exact path='/monsters' element={} />

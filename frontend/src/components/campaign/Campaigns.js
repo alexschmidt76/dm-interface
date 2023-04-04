@@ -36,7 +36,7 @@ const Campaigns = () => {
                 {
                     campaigns.map(campaign => (
                         <li key={campaign.campaign_id}>
-                            <a href="#" onClick={e => Navigate(`/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
+                            <a href="#" onClick={e => Navigate(`/campaigns/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
                         </li>
                     ))
                 }
