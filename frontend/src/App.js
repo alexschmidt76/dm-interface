@@ -10,6 +10,7 @@ import Home from './components/Home'
 import Profile from './components/user/Profile'
 import Campaigns from './components/campaign/Campaigns'
 import Campaign from './components/campaign/Campaign'
+import NewCampaign from './components/campaign/NewCampaign'
 // npm packages
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/' element={<Home />} />
           <Route exact path='/campaigns' element={<Campaigns />} />
           <Route exact path='/campaigns/:campaignId' element={<Campaign />} />
+          <Route exact path='/campaigns/new' element={<NewCampaign />} />
           {/*
           <Route exact path='/campaigns/:campaignId/:sessionId' element={<Session />} />
           <Route exact path='/profile' element={<Profile />} />
