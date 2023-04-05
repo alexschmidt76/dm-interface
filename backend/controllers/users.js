@@ -69,7 +69,7 @@ users.get('/:userId/campaigns', async (req, res) => {
     })
 
     if (foundCampaigns) {
-        res.json({ campaigns: foundCampaigns })
+        res.json({ campaigns: foundCampaigns.campaigns })
     } else {
         res.status(404).json({
             message: "Error 404: User not found."
