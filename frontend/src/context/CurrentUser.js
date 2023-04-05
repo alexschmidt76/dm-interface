@@ -6,9 +6,18 @@ function CurrentUserProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null)
 
     // check if there is a user currently logged in
-    /* useEffect(() => {
-        fetch()
-    }) */
+    useEffect(() => {
+        const getLoggedInUser = async () => {
+            let res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/authentication/profile`, {
+                headers: { 
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            let user = await res.json()
+            setCurrentUser(user)
+        }
+        getLoggedInUser()
+    }, [])
 
     return (
         <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>

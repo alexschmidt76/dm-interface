@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 })
 
 // controllers
-app.use('/users', require('./controllers/users_controller'))
-app.use('/authentication', require('./controllers/authentication_controller'))
+app.use('/users', require('./controllers/users'))
+app.use('/authentication', require('./controllers/authentication'))
 
 // define port
 const PORT = process.env.PORT || 3001
