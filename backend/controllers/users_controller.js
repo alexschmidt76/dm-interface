@@ -24,7 +24,9 @@ users.post('/', async (req, res) => {
         const newUser = await User.create({
             ...rest,
             email,
-            passwordDigest: await bcrypt.hash(password, 10)
+            passwordDigest: await bcrypt.hash(password, 10),
+            campaigns: [],
+            monsters: []
         })
         res.json({ user: newUser })
     } else {
@@ -147,7 +149,7 @@ users.get('/:userId/campaigns/:campaignId/:sessionId', async (req, res) => {
 })
 
 // create a session 
-users.post()
+//users.post()
 
 /* MONSTERS */
 

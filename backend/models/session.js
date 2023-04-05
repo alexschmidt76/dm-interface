@@ -1,21 +1,15 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Session extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    // model associations
     static associate({ Monster, Campaign }) {
-      // campaign association
+      // campaign association (many to one)
       Session.belongsTo(Campaign, {
         foreignKey: 'campaign_id',
         as: 'campaign'
       })
-      // monster association
+      // monster association (many to many)
       Session.belongsToMany(Monster, {
         foreignKey: 'session_id',
         as: 'custom_monsters',

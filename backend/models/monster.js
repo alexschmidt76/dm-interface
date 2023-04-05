@@ -1,14 +1,15 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Monster extends Model {
+    // model associations
     static associate({ User, Session }) {
+      // user association (many to one)
       Monster.belongsTo(User, {
         foreignKey: 'user_id',
         as: 'user'
       })
+      // session association (many to many)
       Monster.belongsToMany(Session, {
         foreignKey: 'monster_id',
         as: 'sessions',

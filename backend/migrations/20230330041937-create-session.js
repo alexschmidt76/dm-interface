@@ -13,10 +13,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      custom_monsters: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false
-      },
       api_monsters: {
         type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: false

@@ -1,16 +1,15 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Campaign extends Model {
+    // model associations
     static associate({ User, Session }) {
-      // user association
+      // user association (many to one)
       Campaign.belongsTo(User, {
         foreignKey: 'user_id',
         as: 'user'
       })
-      // sesssion association
+      // sesssion association (one to many)
       Campaign.hasMany(Session, {
         foreignKey: 'campaign_id',
         as: 'sessions'

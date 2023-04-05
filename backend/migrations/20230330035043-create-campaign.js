@@ -13,10 +13,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      sessions: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false
-      },
       name: {
         type: Sequelize.STRING,
         allowNull: false

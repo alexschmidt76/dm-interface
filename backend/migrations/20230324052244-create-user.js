@@ -21,14 +21,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      campaigns: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false
-      },
-      monsters: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
