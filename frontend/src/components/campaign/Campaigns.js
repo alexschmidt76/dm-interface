@@ -6,7 +6,7 @@ import { CurrentUser } from "../../context/CurrentUser";
 const Campaigns = () => {
     const { currentUser } = useContext(CurrentUser)
     const [campaigns, setCampaigns] = useState([])
-    const [fetchError, setFetchError] = useState(null)
+    const [fetchError, setFetchError] = useState(false)
 
     useEffect(() => {
         if (currentUser) {

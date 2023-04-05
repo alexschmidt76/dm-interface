@@ -19,6 +19,7 @@ const SignUp = () => {
 
         // confirm password matches
         if (credentials.password === confirmPassword) {
+            // attempt to create a user with provided credentials
             const response = await fetch (`${process.env.REACT_APP_BACKEND_URL}/users`, {
                 method: 'POST',
                 headers: {
@@ -27,7 +28,7 @@ const SignUp = () => {
                 body: JSON.stringify(credentials)
             })
             const data = await response.json()
-
+            // log user into new account if successfull
             if (response.status === 200) {
                 setErrorMessage(null)
                 setCurrentUser(data.user)
