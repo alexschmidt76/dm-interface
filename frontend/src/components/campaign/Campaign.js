@@ -47,7 +47,7 @@ const Campaign = () => {
                     {
                         campaign.sessions.map((session, i) => (
                             <li key={i}>
-                                <a href="#" onClick={Navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
+                                <a href="" onClick={Navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
                             </li>
                         ))
                     }

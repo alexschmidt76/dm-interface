@@ -14,9 +14,10 @@ const Campaigns = () => {
         if (currentUser) {
             fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns`)
                 .then(res => res.json())
-                .then(data => setCampaigns(data))
+                .then(data => setCampaigns(data.campaigns))
                 .catch(error => setFetchError(e => !e))
         }
+        console.log(campaigns)
     }, [fetchError, currentUser])
 
     if (!currentUser) {
@@ -34,10 +35,10 @@ const Campaigns = () => {
                     campaigns.length > 0
                     ? campaigns.map(campaign => (
                         <li key={campaign.campaign_id}>
-                            <a href="#" onClick={e => navigate(`/campaigns/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
+                            <a href="" onClick={e => navigate(`/campaigns/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
                         </li>
                     ))
-                    : null
+                    : <p>You have no saved campaigns!</p>
                 }
             </ul>
             <Button onClick={() => navigate('/campaigns/new')}>New Campaign</Button>

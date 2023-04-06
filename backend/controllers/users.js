@@ -100,7 +100,7 @@ users.get('/:userId/campaigns/:campaignId', async (req, res) => {
     })
 
     if (foundCampaign) {
-        if (foundCampaign.user_id !== req.params.userId) {
+        if (foundCampaign.user_id !== Number(req.params.userId)) {
             res.status(403).json({
                 message: 'User is not permited to view this campaign.'
             })
@@ -129,7 +129,7 @@ users.get('/:userId/campaigns/:campaignId/:sessionId', async (req, res) => {
 
     if (foundSession) {
         // check that this session belongs to this campaign
-        if (foundSession.campaign_id === req.params.campaignId) {
+        if (foundSession.campaign_id === Number(req.params.campaignId)) {
             // check that this campaign belongs to this user
             const foundCampaign = await Campaign.findByPk(req.params.campaignId)
             if (foundCampaign && foundCampaign.user_id === req.params.userId) {
