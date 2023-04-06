@@ -79,18 +79,16 @@ users.get('/:userId/campaigns', async (req, res) => {
 
 // create a campaign belonging to a user
 users.post('/:userId/campaigns', async (req, res) => {
-    // get info from body
-    const { name, player_names, description } = req.body
-
-    // create new campaign
-    const newCampaign = await Campaign.create({
-        name,
-        player_names,
-        description,
-        user_id: req.params.userId
-    })
-
-    res.json({ campaign: newCampaign })
+    try {
+        // create new campaign with body
+        const newCampaign = await Campaign.create(req.body)
+        res.json({ campaign: newCampaign })
+    } catch (error) {
+        res.status(500).json({
+            message: 'Database error',
+            error
+        })
+    }
 })
 
 // get a single campaign belonging to a user
