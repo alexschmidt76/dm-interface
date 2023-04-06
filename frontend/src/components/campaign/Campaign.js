@@ -16,13 +16,20 @@ const Campaign = () => {
                 .then(data => setCampaign(data))
                 .catch(error => setFetchError(e => !e))
         }
-        console.log(campaign)
     }, [currentUser, campaignId, fetchError])
 
     if (!currentUser) {
         return (
             <div id="campaign-error">
                 <p>Please <a href="/">log in/sign up</a> to view your saved campaigns.</p>
+            </div>
+        )
+    }
+
+    if (!campaign) {
+        return (
+            <div id="error">
+                <p>ERROR</p>
             </div>
         )
     }

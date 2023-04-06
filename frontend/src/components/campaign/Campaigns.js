@@ -17,7 +17,6 @@ const Campaigns = () => {
                 .then(data => setCampaigns(data.campaigns))
                 .catch(error => setFetchError(e => !e))
         }
-        console.log(campaigns)
     }, [fetchError, currentUser])
 
     if (!currentUser) {

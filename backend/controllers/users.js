@@ -95,7 +95,7 @@ users.post('/:userId/campaigns', async (req, res) => {
 // get a single campaign belonging to a user
 users.get('/:userId/campaigns/:campaignId', async (req, res) => {
     // find campaign
-    const foundCampaign = await Campaign.findByPk(req.params.campaignId, {
+    const foundCampaign = await Campaign.findByPk(Number(req.params.campaignId), {
         include: ['sessions']
     })
 
