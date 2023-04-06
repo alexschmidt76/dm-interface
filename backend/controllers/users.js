@@ -115,6 +115,19 @@ users.get('/:userId/campaigns/:campaignId', async (req, res) => {
 })
 
 // update a campaign
+users.put('/:userId/campaigns/:campaignId', async (req, res) => {
+    try {
+        const updatedCampaign = await Campaign.update(req.body, {
+            where: { campaign_id: req.params.campaignId }
+        })
+        res.json(updatedCampaign)
+    } catch (error) {
+        res.status(500).json({
+            message: 'Database Error',
+            error
+        })
+    }
+})
 
 // delete a campaign
 

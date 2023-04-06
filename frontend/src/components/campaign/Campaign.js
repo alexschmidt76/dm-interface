@@ -22,10 +22,18 @@ const Campaign = () => {
         }
     }, [currentUser, campaignId, fetchError])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const putNewName = async (e) => {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns/${campaignId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ player_names: [...campaign.player_names, newName] })
+        })
 
-
+        if (response.status === 200) {
+            setPlayerFormOn(false)
+        }
     }
 
     if (!currentUser) {
@@ -60,7 +68,7 @@ const Campaign = () => {
                 {
                     playerFormOn
                     ? (
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={putNewName}>
                             <Form.Group>
                                 <Form.Control
                                     required
