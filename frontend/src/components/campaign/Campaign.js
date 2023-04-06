@@ -1,13 +1,17 @@
 import { useContext, useEffect, useState } from "react"
-import { Navigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { CurrentUser } from "../../context/CurrentUser"
-import { Button } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 
 const Campaign = () => {
+    const navigate = useNavigate()
+
     const { campaignId } = useParams()
     const { currentUser } = useContext(CurrentUser)
     const [campaign, setCampaign] = useState(null)
     const [fetchError, setFetchError] = useState(false)
+    const [playerFormOn, setPlayerFormOn] = useState(false)
+    const [newName, setNewName] = useState('')
 
     useEffect(() => {
         if (currentUser) {
@@ -17,6 +21,12 @@ const Campaign = () => {
                 .catch(error => setFetchError(e => !e))
         }
     }, [currentUser, campaignId, fetchError])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+
+    }
 
     if (!currentUser) {
         return (
@@ -47,14 +57,32 @@ const Campaign = () => {
                         ))
                     }
                 </ul>
-                <Button onClick={null}>Add Player</Button>
+                {
+                    playerFormOn
+                    ? (
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group>
+                                <Form.Control
+                                    required
+                                    type="text"
+                                    placeholder="Enter Player Name..."
+                                    value={newName}
+                                    onChange={e => setNewName(e.target.value)}
+                                />
+                            </Form.Group>
+                            <Button type="submit">Add Player</Button>
+                            <Button onClick={e => setPlayerFormOn(false)}>Cancel</Button>
+                        </Form>
+                    )
+                    : <Button onClick={e => setPlayerFormOn(true)}>Add Player</Button>
+                }
             </div>
             <div id="session-list">
                 <ul>
                     {
                         campaign.sessions.map((session, i) => (
                             <li key={i}>
-                                <a href="" onClick={Navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
+                                <a href="" onClick={navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
                             </li>
                         ))
                     }
