@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User, Session }) {
       // user association (many to one)
       Campaign.belongsTo(User, {
-        foreignKey: 'user_id',
-        as: 'user'
+        foreignKey: 'user_id'
       })
       // sesssion association (one to many)
       Campaign.hasMany(Session, {

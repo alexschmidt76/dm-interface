@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 const NewCampaign = () => {
     const navigate = useNavigate()
 
-    const currentUser = useContext(CurrentUser)
+    const { currentUser } = useContext(CurrentUser)
     const [errorMessage, setErrorMessage] = useState(null)
     const [newCampaign, setNewCampaign] = useState({
         user_id: currentUser.user_id,
@@ -17,8 +17,8 @@ const NewCampaign = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/campaigns`, {
+        // make fetch request
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,11 +30,13 @@ const NewCampaign = () => {
         })
         const data = await response.json()
 
+        // redirect user to new campaign if successfull
         if (response.status === 200) {
             setErrorMessage(null)
             navigate(`/campaigns/${data.campaign.campaign_id}`)
         } else {
             setErrorMessage(data.message)
+            console.log(data.error)
         }
     }
 
@@ -85,7 +87,7 @@ const NewCampaign = () => {
                         required
                         type="text"
                         placeholder="Enter a Description of the Campaign..."
-                        value={newCampaign.name}
+                        value={newCampaign.description}
                         onChange={e => setNewCampaign({...newCampaign, description: e.target.value})}
                     />
                 </Form.Group>
@@ -95,7 +97,11 @@ const NewCampaign = () => {
                     <Button onClick={e => {
                         if (playerNames[playerNames.length-1] !== '') setPlayerNames([...playerNames, ''])
                     }}>+</Button>
+                    <Button onClick={e=> {
+                        if (playerNames.length > 1) setPlayerNames(playerNames.slice(0, playerNames.length-1))
+                    }}>-</Button>
                 </Form.Group>
+                <Button type="submit">Create Campaign</Button>
             </Form>
         </div>
     )
