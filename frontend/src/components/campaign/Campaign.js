@@ -18,6 +18,14 @@ const Campaign = () => {
         }
     }, [currentUser, campaignId, fetchError])
 
+    if (!currentUser) {
+        return (
+            <div id="campaign-error">
+                <p>Please <a href="/">log in/sign up</a> to view your saved campaigns.</p>
+            </div>
+        )
+    }
+
     return (
         <div id="campaign">
             <h1>{campaign.name}</h1>

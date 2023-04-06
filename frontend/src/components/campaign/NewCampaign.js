@@ -1,8 +1,11 @@
 import { useState, useContext } from "react"
 import { CurrentUser } from "../../context/CurrentUser"
 import { Form, Alert, Button } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 const NewCampaign = () => {
+    const navigate = useNavigate()
+
     const currentUser = useContext(CurrentUser)
     const [errorMessage, setErrorMessage] = useState(null)
     const [newCampaign, setNewCampaign] = useState({
@@ -14,20 +17,32 @@ const NewCampaign = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        /**
-         * @TODO
-         * check that there are no empty player names
-         * filter out empty names
-         * add names to newCampaign object
-         * fetch request to make new campaign
-         * redirect to campaigns view
-         */
+        
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/campaigns`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ...newCampaign,
+                player_names: playerNames
+            })
+        })
+        const data = await response.json()
+
+        if (response.status === 200) {
+            setErrorMessage(null)
+            navigate(`/campaigns/${data.campaign.campaign_id}`)
+        } else {
+            setErrorMessage(data.message)
+        }
     }
 
     const playerNameSlots = () => (
         // have a slot for each player name
         playerNames.map((name, idx) => (
             <Form.Control
+                required
                 key={idx}
                 type="text"
                 placeholder="Enter Player Name..."
