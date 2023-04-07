@@ -32,6 +32,7 @@ const Navigation = () => {
                             ? (
                                 <Nav>
                                     <Nav.Link href='/profile'>Logged in as {currentUser.name}</Nav.Link>
+                                    <Nav.Link href='/' onClick={e => localStorage.clear()}><b>Log Out</b></Nav.Link>
                                 </Nav>
                             )
                             : null
