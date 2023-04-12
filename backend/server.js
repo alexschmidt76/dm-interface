@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.use('/users', require('./controllers/users'))
 app.use('/authentication', require('./controllers/authentication'))
 app.use('/campaigns', require('./controllers/campaigns'))
-
+app.use('/sessions', require('./controllers/sessions'))
 
 // define port
 const PORT = process.env.PORT || 3001

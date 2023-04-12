@@ -22,7 +22,27 @@ campaigns.get('/:campaignId', async (req, res) => {
         }
     } else {
         res.status(404).json({
-            message: 'Error 404: Campaign not found.'
+            message: 'Campaign not found.'
+        })
+    }
+})
+
+// create a campaign belonging to the current user
+users.post('/', async (req, res) => {
+    if (req.body.user_id === req.currentUser.user_id) {
+        try {
+            // create new campaign with body
+            const newCampaign = await Campaign.create(req.body)
+            res.json({ campaign: newCampaign })
+        } catch (error) {
+            res.status(500).json({
+                message: 'Database error',
+                error
+            })
+        }
+    } else {
+        res.status(401).json({
+            message: 'User is not authorized to create this campaign.'
         })
     }
 })

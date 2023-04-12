@@ -3,11 +3,16 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     // model associations
-    static associate({ Campaign, Monster }) {
+    static associate({ Campaign, Session, Monster }) {
       // campaign association (one to many)
       User.hasMany(Campaign, {
         foreignKey: "user_id",
         as: "campaigns"
+      })
+      // session association (one to many)
+      User.hasMany(Session, {
+        foreignKey: 'user_id',
+        as: 'sessions'
       })
       // monster association (one to many)
       User.hasMany(Monster, {

@@ -74,19 +74,4 @@ users.get('/:userId/campaigns', async (req, res) => {
     }
 })
 
-// create a campaign belonging to a user
-users.post('/:userId/campaigns', async (req, res) => {
-    try {
-        console.log(JSON.stringify(req.body))
-        // create new campaign with body
-        const newCampaign = await Campaign.create(req.body)
-        res.json({ campaign: newCampaign })
-    } catch (error) {
-        res.status(500).json({
-            message: 'Database error',
-            error
-        })
-    }
-})
-
 module.exports = users

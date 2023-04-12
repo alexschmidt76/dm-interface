@@ -1,0 +1,30 @@
+// express setup
+const sessions = require('express').Router()
+
+// import db
+const { Session } = require('../models')
+
+// create a new session
+sessions.post('/', async (req, res) => {
+    // check authorization
+    if (req.body.user_id === req.currentUser.user_id) {
+        try {
+            const newSession = await Session.create(req.body)
+            res.json({ session: newSession })
+        } catch (error) {
+            res.status(500).json({
+                message: 'Database error',
+                error
+            })
+        }
+    } else {
+        res.status(401).json({
+            message: 'User is not authorized to create this session.'
+        })
+    }
+})
+
+// get a session from its id
+sessions.get()
+
+module.exports = sessions

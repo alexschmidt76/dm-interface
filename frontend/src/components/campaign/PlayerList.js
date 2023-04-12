@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 
-const PlayerNames = (props) => {
+const PlayerList = (props) => {
     const [playerFormOn, setPlayerFormOn] = useState(false)
     const [newName, setNewName] = useState('')
 
@@ -53,4 +53,4 @@ const PlayerNames = (props) => {
     )
 }
 
-export default PlayerNames
+export default PlayerList

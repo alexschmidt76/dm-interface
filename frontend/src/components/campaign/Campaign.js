@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { CurrentUser } from "../../context/CurrentUser"
 
 // react component imports
-import PlayerNames from "./PlayerNames"
+import PlayerList from "./PlayerList"
 import SessionList from "./SessionList"
 import ErrorScreen from "../ErrorScreen"
 
@@ -50,7 +50,7 @@ const Campaign = () => {
         <div id="campaign">
             <h1>{campaign.name}</h1>
             <hr />
-            <PlayerNames player_names={campaign.player_names} campaignId={campaignId}/>
+            <PlayerList player_names={campaign.player_names} campaignId={campaignId}/>
             <SessionList sessions={campaign.sessions} campaignId={campaignId} />
         </div>
     )
