@@ -12,6 +12,7 @@ campaigns.get('/:campaignId', async (req, res) => {
     })
 
     if (foundCampaign) {
+        // check if user is auuthorized
         if (foundCampaign.user_id !== req.currentUser.user_id) {
             res.status(401).json({
                 message: 'User is not authorized to view this campaign.'
@@ -33,7 +34,11 @@ campaigns.put('/:campaignId', async (req, res) => {
         const foundCampaign = await Campaign.findByPk(req.params.campaignId, {
             attributes: ['campaign_id', 'user_id']
         })
-        if (req.currentUser.user_id === foundCampaign.user_id) {
+        if (!foundCampaign) {
+            res.status(404).json({
+                message: 'Campaign not found.'
+            })
+        } else if (req.currentUser.user_id === foundCampaign.user_id) {
             // update campaign
             try {
                 const updatedCampaign = await Campaign.update(req.body, {
@@ -42,7 +47,7 @@ campaigns.put('/:campaignId', async (req, res) => {
                 res.json(updatedCampaign)
             } catch (error) {
                 res.status(500).json({
-                    message: 'Database Error',
+                    message: 'Database Error, no campaign updated.',
                     error
                 })
             }
@@ -53,7 +58,7 @@ campaigns.put('/:campaignId', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({
-            message: 'Database Error',
+            message: 'Database Error, no campaign updated.',
             error
         })
     }
