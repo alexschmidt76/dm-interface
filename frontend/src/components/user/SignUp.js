@@ -32,7 +32,7 @@ const SignUp = () => {
             if (response.status === 200) {
                 setErrorMessage(null)
                 setCurrentUser(data.user)
-                localStorage.setItem('token', data.token)
+                sessionStorage.setItem('token', data.token)
             } else {
                 setErrorMessage(data.message)
             }
@@ -92,7 +92,7 @@ const SignUp = () => {
                         onChange={e => setConfirmPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button variant='primary' type='submit'>Sign Up</Button>
+                <Button variant='primary' type='submit'>Sign Up and Log In</Button>
             </Form>
         </div>
     )

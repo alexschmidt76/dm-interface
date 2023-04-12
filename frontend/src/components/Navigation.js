@@ -7,6 +7,11 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 const Navigation = () => {
     const { currentUser } = useContext(CurrentUser)
 
+    const handleLogOut = (e) => {
+        localStorage.clear()
+        sessionStorage.clear()
+    }
+
     return (
         <nav>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant='dark' sticky='top'>
@@ -32,7 +37,7 @@ const Navigation = () => {
                             ? (
                                 <Nav>
                                     <Nav.Link href='/profile'>Logged in as {currentUser.name}</Nav.Link>
-                                    <Nav.Link href='/' onClick={e => localStorage.clear()}><b>Log Out</b></Nav.Link>
+                                    <Nav.Link href='/' onClick={handleLogOut}><b>Log Out</b></Nav.Link>
                                 </Nav>
                             )
                             : null

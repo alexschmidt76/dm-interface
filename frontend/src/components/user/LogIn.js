@@ -9,6 +9,7 @@ const LogIn = () => {
         email: '',
         password: ''
     })
+    const [stayLogged, setStayLogged] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -24,7 +25,11 @@ const LogIn = () => {
         if (response.status === 200) {
             setErrorMessage(null)
             setCurrentUser(data.user)
-            localStorage.setItem('token', data.token)
+            // check if user wants to remain logged in after they close the browser
+            if (stayLogged) {
+                localStorage.setItem('token', data.token)
+            } 
+            sessionStorage.setItem('token', data.token)
         } else {
             setErrorMessage(data.message)
         }
@@ -59,6 +64,12 @@ const LogIn = () => {
                         onChange={e => setCredentials({ ...credentials, password: e.target.value })}
                     />
                 </Form.Group>
+                <Form.Check
+                    type='checkbox'
+                    value={stayLogged}
+                    label='Stay Logged In'
+                    onChange={e => setStayLogged(!stayLogged)}
+                />
                 <Button variant='primary' type='submit'>Log In</Button>
             </Form>
         </div>
