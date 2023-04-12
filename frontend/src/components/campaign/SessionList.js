@@ -1,9 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Alert, Button } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import { CurrentUser } from "../../context/CurrentUser"
 
 const SessionList = (props) => {
     const navigate = useNavigate()
+    const { currentUser } = useContext(CurrentUser)
     const [fetchError, setFetchError] = useState(null)
 
     const createSession = async () => {
@@ -13,9 +15,13 @@ const SessionList = (props) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: {
-                campaign_id: props.campaignId
-            }
+            body: JSON.stringify({
+                campaign_id: Number(props.campaignId),
+                user_id: currentUser.user_id,
+                api_monsters: [],
+                notes: '',
+                names: []
+            })
         })
         const newSession = await response.json()
 
@@ -32,12 +38,12 @@ const SessionList = (props) => {
             <ul>
                 {
                     props.sessions.length > 0
-                    ? props.sessions.map((session, i) => (
-                        <li key={i}>
-                            <a href={`/sessions/${session.session_id}`}><b>Session {i+1}</b></a>
-                        </li>
-                    ))
-                    : <p>You don't have any saved sessions!</p>
+                        ? props.sessions.map((session, i) => (
+                            <li key={i}>
+                                <a href={`/sessions/${session.session_id}`}><b>Session {i+1}</b></a>
+                            </li>
+                        ))
+                        : <p>You don't have any saved sessions!</p>
                 }
             </ul>
             {

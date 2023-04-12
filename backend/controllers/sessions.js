@@ -26,15 +26,23 @@ sessions.post('/', async (req, res) => {
 
 // get a session from its id
 sessions.get('/:sessionId', async (req, res) => {
+    // find session
     const foundSession = await Session.findByPk(req.params.sessionId, {
         include: ['campaign']
     })
-
-    if (foundSession) {
-        res.json({ session: foundSession })
+    
+    // check authorization
+    if (req.currentUser.user_id === foundSession.user_id) {
+        if (foundSession) {
+            res.json({ session: foundSession })
+        } else {
+            res.status(404).json({
+                message: "Session not found"
+            })
+        }
     } else {
-        res.status(404).json({
-            message: "Session not found"
+        res.status(401).json({
+            message: 'User is not authorized to view this session.'
         })
     }
 })
