@@ -6,40 +6,44 @@ import { CurrentUser } from "../../context/CurrentUser"
 // react component imports
 import PlayerNames from "./PlayerNames"
 import SessionList from "./SessionList"
+import ErrorScreen from "../ErrorScreen"
 
 const Campaign = () => {
     const { campaignId } = useParams()
     const { currentUser } = useContext(CurrentUser)
     const [campaign, setCampaign] = useState(null)
-    const [fetchError, setFetchError] = useState(false)
+    const [fetchError, setFetchError] = useState(null)
 
     useEffect(() => {
-        if (currentUser) {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/campaigns/${campaignId}`, {
-                headers: { 
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => setCampaign(data))
-                .catch(error => setFetchError(e => !e))
-        }
-    }, [currentUser, campaignId, fetchError])
+        const getCampaign = async () => {
+            if (currentUser) {
+                // find campaign
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/campaigns/${campaignId}`, {
+                    headers: { 
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                const data = await response.json()
 
-    if (!currentUser) {
-        return (
-            <div id="campaign-error">
-                <p>Please <a href="/">log in/sign up</a> to view your saved campaigns.</p>
-            </div>
-        )
+                // check errors
+                if (response.status === 200) {
+                    setFetchError(null)
+                    setCampaign(data)
+                } else {
+                    data.status = response.status
+                    setFetchError(data)
+                }
+            }
+        }
+        getCampaign()
+    }, [currentUser, campaignId])
+
+    if (fetchError) {
+        return <ErrorScreen status={fetchError.status} message={fetchError.message} />
     }
 
-    if (!campaign) {
-        return (
-            <div id="error">
-                <p>ERROR</p>
-            </div>
-        )
+    if (!currentUser || !campaign) {
+        return <p>Loading...</p>
     }
 
     return (

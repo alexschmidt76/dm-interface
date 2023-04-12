@@ -20,24 +20,22 @@ const Campaigns = () => {
     }, [fetchError, currentUser])
 
     if (!currentUser) {
-        return (
-            <div id="campaigns-error">
-                <p>Please <a href="/">log in/sign up</a> to view your saved campaigns.</p>
-            </div>
-        )
+        return <p>Loading...</p>
     }
 
     return (
         <div id="campaigns">
             <ul id="campaign-list">
                 {
-                    campaigns.length > 0
-                    ? campaigns.map(campaign => (
-                        <li key={campaign.campaign_id}>
-                            <a href="" onClick={e => navigate(`/campaigns/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
-                        </li>
-                    ))
-                    : <p>You have no saved campaigns!</p>
+                    campaigns === null
+                        ? <p>Loading...</p>
+                        : campaigns.length > 0
+                            ? campaigns.map(campaign => (
+                                <li key={campaign.campaign_id}>
+                                    <a href="" onClick={e => navigate(`/campaigns/${campaign.campaign_id}`)}><b>{campaign.name}</b></a>
+                                </li>
+                            ))
+                            : <p>You have no saved campaigns!</p>
                 }
             </ul>
             <Button onClick={() => navigate('/campaigns/new')}>New Campaign</Button>
