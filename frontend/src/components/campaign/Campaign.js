@@ -1,17 +1,17 @@
+// npm imports
 import { useContext, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { CurrentUser } from "../../context/CurrentUser"
+
+// react component imports
 import PlayerNames from "./PlayerNames"
+import SessionList from "./SessionList"
 
 const Campaign = () => {
-    const navigate = useNavigate()
-
     const { campaignId } = useParams()
     const { currentUser } = useContext(CurrentUser)
     const [campaign, setCampaign] = useState(null)
     const [fetchError, setFetchError] = useState(false)
-    const [playerFormOn, setPlayerFormOn] = useState(false)
-    const [newName, setNewName] = useState('')
 
     useEffect(() => {
         if (currentUser) {
@@ -47,19 +47,7 @@ const Campaign = () => {
             <h1>{campaign.name}</h1>
             <hr />
             <PlayerNames player_names={campaign.player_names} campaignId={campaignId}/>
-            <div id="session-list">
-                <ul>
-                    {
-                        campaign.sessions.length > 0
-                        ? campaign.sessions.map((session, i) => (
-                            <li key={i}>
-                                <a href="" onClick={navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
-                            </li>
-                        ))
-                        : <p>You don't have any saved sessions!</p>
-                    }
-                </ul>
-            </div>
+            <SessionList sessions={campaign.sessions} campaignId={campaignId} />
         </div>
     )
 }
