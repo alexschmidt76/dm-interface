@@ -26,22 +26,7 @@ auth.post('/', async (req, res) => {
 
 // get logged in user
 auth.get('/profile', async (req, res) => {
-    try {
-        // split auuthorization header
-        const [authMethod, token] = req.headers.authorization.split(' ')
-        // check 'Bearer' method
-        if (authMethod === 'Bearer') {
-            // decode jwt
-            const result = await jwt.decode(process.env.JWT_SECRET, token)
-            // get id from jwt
-            const { id } = result.value
-            // find user with id
-            const user = await User.findByPk(id)
-            res.json(user)
-        }
-    } catch {
-        res.json(null)
-    }
+    res.json(req.currentUser)
 })
 
 module.exports = auth

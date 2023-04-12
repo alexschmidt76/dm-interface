@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { CurrentUser } from "../../context/CurrentUser"
-import { Button, Form } from "react-bootstrap"
+import PlayerNames from "./PlayerNames"
 
 const Campaign = () => {
     const navigate = useNavigate()
@@ -15,26 +15,16 @@ const Campaign = () => {
 
     useEffect(() => {
         if (currentUser) {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns/${campaignId}`)
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/campaigns/${campaignId}`, {
+                headers: { 
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => setCampaign(data))
                 .catch(error => setFetchError(e => !e))
         }
     }, [currentUser, campaignId, fetchError])
-
-    const putNewName = async (e) => {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns/${campaignId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ player_names: [...campaign.player_names, newName] })
-        })
-
-        if (response.status === 200) {
-            setPlayerFormOn(false)
-        }
-    }
 
     if (!currentUser) {
         return (
@@ -56,43 +46,17 @@ const Campaign = () => {
         <div id="campaign">
             <h1>{campaign.name}</h1>
             <hr />
-            <div id="player-list">
-                <h3>Player Names</h3>
-                <ul>
-                    {
-                        campaign.player_names.map((name, i) => (
-                            <li key={i}>{name}</li>
-                        ))
-                    }
-                </ul>
-                {
-                    playerFormOn
-                    ? (
-                        <Form onSubmit={putNewName}>
-                            <Form.Group>
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    placeholder="Enter Player Name..."
-                                    value={newName}
-                                    onChange={e => setNewName(e.target.value)}
-                                />
-                            </Form.Group>
-                            <Button type="submit">Add Player</Button>
-                            <Button onClick={e => setPlayerFormOn(false)}>Cancel</Button>
-                        </Form>
-                    )
-                    : <Button onClick={e => setPlayerFormOn(true)}>Add Player</Button>
-                }
-            </div>
+            <PlayerNames player_names={campaign.player_names} campaignId={campaignId}/>
             <div id="session-list">
                 <ul>
                     {
-                        campaign.sessions.map((session, i) => (
+                        campaign.sessions.length > 0
+                        ? campaign.sessions.map((session, i) => (
                             <li key={i}>
                                 <a href="" onClick={navigate(`/campaigns/${campaignId}/${session.session_id}`)}><b>Session {i+1}</b></a>
                             </li>
                         ))
+                        : <p>You don't have any saved sessions!</p>
                     }
                 </ul>
             </div>
