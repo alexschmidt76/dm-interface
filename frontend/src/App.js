@@ -11,6 +11,7 @@ import Profile from './components/user/Profile'
 import Campaigns from './components/campaign/Campaigns'
 import Campaign from './components/campaign/Campaign'
 import NewCampaign from './components/campaign/NewCampaign'
+//import Session from './components/';
 // npm packages
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
@@ -26,7 +27,7 @@ function App() {
           <Route exact path='/campaigns/:campaignId' element={<Campaign />} />
           <Route exact path='/campaigns/new' element={<NewCampaign />} />
           {/*
-          <Route exact path='/campaigns/:campaignId/:sessionId' element={<Session />} />
+          <Route exact path='/sessions/:sessionId' element={<Session />} />
           <Route exact path='/profile' element={<Profile />} />
           <Route exact path='/monsters' element={} />
           <Route exact path='/monsters/edit/:monsterId' element={} /> */}

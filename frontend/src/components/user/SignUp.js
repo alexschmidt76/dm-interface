@@ -32,6 +32,7 @@ const SignUp = () => {
             if (response.status === 200) {
                 setErrorMessage(null)
                 setCurrentUser(data.user)
+                localStorage.setItem('token', data.token)
             } else {
                 setErrorMessage(data.message)
             }

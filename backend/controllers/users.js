@@ -1,5 +1,6 @@
-// node dependency
+// node dependencies
 const bcrypt = require('bcrypt')
+const jwt = require('json-web-token')
 
 // express setup
 const users = require('express').Router()
@@ -27,7 +28,8 @@ users.post('/', async (req, res) => {
             campaigns: [],
             monsters: []
         })
-        res.json({ user: newUser })
+        const result = await jwt.encode(process.env.JWT_SECRET, { id: newUser.user_id })
+        res.json({ user: newUser, token: result.value })
     } else {
         res.status(403).json({
             message: "A user with this email already exists."
@@ -69,7 +71,7 @@ users.get('/:userId/campaigns', async (req, res) => {
         res.json({ campaigns: foundCampaigns.campaigns })
     } else {
         res.status(404).json({
-            message: "Error 404: User not found."
+            message: "Campaigns not found."
         })
     }
 })

@@ -28,7 +28,7 @@ campaigns.get('/:campaignId', async (req, res) => {
 })
 
 // create a campaign belonging to the current user
-users.post('/', async (req, res) => {
+campaigns.post('/', async (req, res) => {
     if (req.body.user_id === req.currentUser.user_id) {
         try {
             // create new campaign with body

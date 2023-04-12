@@ -1,7 +1,9 @@
 // node dependencies
-const auth = require('express').Router()
 const bcrypt = require('bcrypt')
 const jwt = require('json-web-token')
+
+// express setup
+const auth = require('express').Router()
 
 // import db
 const db = require('../models')
