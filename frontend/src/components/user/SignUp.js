@@ -13,6 +13,7 @@ const SignUp = () => {
         email: '',
         password: ''
     })
+    const [stayLogged, setStayLogged] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,6 +34,9 @@ const SignUp = () => {
                 setErrorMessage(null)
                 setCurrentUser(data.user)
                 sessionStorage.setItem('token', data.token)
+                if (stayLogged) {
+                    localStorage.setItem('token', data.token)
+                }
             } else {
                 setErrorMessage(data.message)
             }
@@ -92,6 +96,12 @@ const SignUp = () => {
                         onChange={e => setConfirmPassword(e.target.value)}
                     />
                 </Form.Group>
+                <Form.Check
+                    type='checkbox'
+                    value={stayLogged}
+                    label='Stay Logged In'
+                    onChange={e => setStayLogged(!stayLogged)}
+                />
                 <Button variant='primary' type='submit'>Sign Up and Log In</Button>
             </Form>
         </div>

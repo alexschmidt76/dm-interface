@@ -42,7 +42,7 @@ users.get('/:userId', async (req, res) => {
     const foundUser = await User.findByPk(Number(req.params.userId))
 
     if (foundUser) {
-        res.json({ user: foundUser })
+        res.json(foundUser)
     } else {
         res.status(404).json({
             message: 'Error 404: User not found.'
@@ -68,7 +68,7 @@ users.get('/:userId/campaigns', async (req, res) => {
     })
 
     if (foundCampaigns) {
-        res.json({ campaigns: foundCampaigns.campaigns })
+        res.json(foundCampaigns.campaigns)
     } else {
         res.status(404).json({
             message: "Campaigns not found."

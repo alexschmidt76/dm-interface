@@ -22,7 +22,7 @@ const NewCampaign = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 ...newCampaign,
@@ -34,7 +34,7 @@ const NewCampaign = () => {
         // redirect user to new campaign if successfull
         if (response.status === 200) {
             setErrorMessage(null)
-            navigate(`/campaigns/${data.campaign.campaign_id}`)
+            navigate(`/campaigns/${data.campaign_id}`)
         } else {
             setErrorMessage(data.message)
             console.log(data.error)

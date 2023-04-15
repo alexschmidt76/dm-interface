@@ -9,8 +9,10 @@ sessions.post('/', async (req, res) => {
     // check authorization
     if (req.body.user_id === req.currentUser.user_id) {
         try {
-            const newSession = await Session.create(req.body)
-            res.json({ session: newSession })
+            let { initiatives, ...rest } = req.body
+            initiatives = JSON.stringify(initiatives)
+            const newSession = await Session.create({...rest, initiatives})
+            res.json(newSession)
         } catch (error) {
             res.status(500).json({
                 message: 'Database error',
@@ -34,7 +36,7 @@ sessions.get('/:sessionId', async (req, res) => {
     // check authorization
     if (req.currentUser.user_id === foundSession.user_id) {
         if (foundSession) {
-            res.json({ session: foundSession })
+            res.json(foundSession)
         } else {
             res.status(404).json({
                 message: "Session not found"

@@ -25,8 +25,8 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      names: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
+      initiatives: {
+        type: Sequelize.JSON,
         allowNull: false
       },
       createdAt: {

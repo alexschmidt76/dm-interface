@@ -20,7 +20,7 @@ const Campaign = () => {
                 // find campaign
                 const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/campaigns/${campaignId}`, {
                     headers: { 
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                     }
                 })
                 const data = await response.json()
@@ -51,7 +51,7 @@ const Campaign = () => {
             <h1>{campaign.name}</h1>
             <hr />
             <PlayerList player_names={campaign.player_names} campaignId={campaignId}/>
-            <SessionList sessions={campaign.sessions} campaignId={campaignId} />
+            <SessionList sessions={campaign.sessions} player_names={campaign.player_names} campaignId={campaignId} />
         </div>
     )
 }

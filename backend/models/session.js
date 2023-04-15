@@ -36,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    names: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    initiatives: {
+      type: DataTypes.JSON,
       allowNull: false
     }
   }, {

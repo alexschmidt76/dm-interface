@@ -9,27 +9,34 @@ const SessionList = (props) => {
     const [fetchError, setFetchError] = useState(null)
 
     const createSession = async () => {
+        console.log(props)
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/sessions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
             },
             body: JSON.stringify({
                 campaign_id: Number(props.campaignId),
                 user_id: currentUser.user_id,
                 api_monsters: [],
                 notes: '',
-                names: []
+                initiatives: props.player_names.map(player => (
+                    {
+                        name: player,
+                        roll: 0
+                    }
+                ))
             })
         })
-        const newSession = await response.json()
+        const data = await response.json()
+        console.log(data)
 
         if (response.status === 200) {
             setFetchError(null)
-            navigate(`/sessions/${newSession.session_id}`)
+            navigate(`/sessions/${data.session_id}`)
         } else {
-            setFetchError(newSession)
+            setFetchError(data)
         }
     }
 

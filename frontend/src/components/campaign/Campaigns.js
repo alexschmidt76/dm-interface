@@ -14,7 +14,7 @@ const Campaigns = () => {
         if (currentUser) {
             fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${currentUser.user_id}/campaigns`)
                 .then(res => res.json())
-                .then(data => setCampaigns(data.campaigns))
+                .then(data => setCampaigns(data))
                 .catch(error => setFetchError(e => !e))
         }
     }, [fetchError, currentUser])

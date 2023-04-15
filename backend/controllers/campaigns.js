@@ -33,7 +33,7 @@ campaigns.post('/', async (req, res) => {
         try {
             // create new campaign with body
             const newCampaign = await Campaign.create(req.body)
-            res.json({ campaign: newCampaign })
+            res.json(newCampaign)
         } catch (error) {
             res.status(500).json({
                 message: 'Database error',

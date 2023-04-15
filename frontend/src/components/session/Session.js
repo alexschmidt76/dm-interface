@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { CurrentUser } from "../../context/CurrentUser"
+import InitiativeTracker from "./InitiativeTracker"
 
 const Session = () => {
     const { sessionId } = useParams()
@@ -14,14 +15,16 @@ const Session = () => {
                 // find session
                 const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/sessions/${sessionId}`, {
                     headers: { 
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                     }
                 })
-                const data = await response.json()
+                let data = await response.json()
 
                 // check errors
                 if (response.status === 200) {
                     setFetchError(null)
+                    // get initiatives object
+                    data.initiatives = JSON.parse(data.initiatives)
                     setSession(data)
                 } else {
                     data.status = response.status
@@ -32,9 +35,13 @@ const Session = () => {
         getSession()
     }, [currentUser, sessionId])
 
+    if (!session) {
+        return <p>Loading...</p>
+    }
+
     return (
         <div id='session'>
-            <p>example</p>
+            <InitiativeTracker initiatives={session.initiatives} />
         </div>
     )
 }
